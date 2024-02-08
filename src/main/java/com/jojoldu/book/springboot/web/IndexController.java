@@ -2,23 +2,24 @@ package com.jojoldu.book.springboot.web;
 
 import com.jojoldu.book.springboot.service.posts.PostsService;
 import com.jojoldu.book.springboot.web.dto.PostsResponseDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RequiredArgsConstructor // 어노테이션 추가로 하단 주석되어 있는 IndexController를 사용하지 않음
+@Controller // 기존 @Controller 에서 @RestController로 변경 -> 변경하니깐 return에 문자열을 머스테치로 읽지 않고 단순 문자열로 읽음 그래서 다시 원복
 public class IndexController {
 
     // service
     private final PostsService postsService;
 
-    // service 주입
-    @Autowired
-    public IndexController(PostsService postsService) {
-        this.postsService = postsService;
-    }
+//    public IndexController(PostsService postsService) {
+//        this.postsService = postsService;
+//    }
+
 
     /**
      * 메인화면 및 목록 조회

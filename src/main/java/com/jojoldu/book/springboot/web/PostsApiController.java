@@ -18,13 +18,35 @@ public class PostsApiController {
         return postsService.save(requestDto);
     }
 
+    /**
+     * 게시글 수정
+     * @param id
+     * @param requestDto
+     * @return
+     */
     @PutMapping("/api/v1/posts/{id}")
     public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
         return postsService.update(id, requestDto);
     }
 
+    /**
+     * id를 통해 게시글 조회
+     * @param id
+     * @return
+     */
     @GetMapping("/api/v1/posts/{id}")
     public PostsResponseDto findById(@PathVariable Long id) {
         return postsService.findById(id);
+    }
+
+    /**
+     * 게시글 삭제
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/api/v1/posts/{id}")
+    public Long delete(@PathVariable Long id) {
+        postsService.delete(id);
+        return id;
     }
 }
