@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.management.relation.Role;
 import javax.persistence.*;
 
 @Getter
@@ -28,7 +27,7 @@ public class User extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)    // 1
     @Column(nullable = false)
-    private Role role;
+    private Role role;      // 2
 
     @Builder
     public User(String name, String email, String picture, Role role) {
@@ -50,3 +49,13 @@ public class User extends BaseTimeEntity {
     }
 
 }
+
+
+// 1. @Enumerated(EnumType.STRING)
+// JPA로 데이터베이스 저장할때 Enum 값을 어떤 형태로 저장할지를 결정
+// 기본적으로 int로 된 숫자가 저장
+// 숫자로 저장되면 데이터베이스로 확인할 때 그 값이 무슨 코드를 의미하는지 알 수가 없음
+// 그래서 문자열(EnumType.STRING)로 저장될 수 있도록 선언
+
+// 2. Role
+// enum 매핑 다른 라이브러리 import할 필요 없음
