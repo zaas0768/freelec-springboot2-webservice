@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
+@Table(name = "Users")      // 테이블 명칭을 User로 하면 오류남 Users로 변경해서 매핑해줘야 한다. DB 예약어때문에
 public class User extends BaseTimeEntity {
 
     @Id
