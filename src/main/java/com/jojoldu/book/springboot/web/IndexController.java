@@ -1,5 +1,6 @@
 package com.jojoldu.book.springboot.web;
 
+import com.jojoldu.book.springboot.config.auth.LoginUser;
 import com.jojoldu.book.springboot.config.auth.dto.SessionUser;
 import com.jojoldu.book.springboot.service.posts.PostsService;
 import com.jojoldu.book.springboot.web.dto.PostsResponseDto;
@@ -31,12 +32,13 @@ public class IndexController {
      * @return
      */
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, @LoginUser SessionUser user) {     // @LoginUser SessionUser user
         // Model
         model.addAttribute("posts", postsService.findAllDesc());
 
         // login
-        SessionUser user = (SessionUser) httpSession.getAttribute("user"); // (SessionUser) httpSession.getAttribute("user")
+        //SessionUser user = (SessionUser) httpSession.getAttribute("user"); // (SessionUser) httpSession.getAttribute("user")
+        // @LoginUser 로 인해 더 이상 사용하지 않음 주석처리, 재사용성을 위해 OAuth를 받는 코드를 따로 구현함
         if (user != null) {     // if (user != null)
             model.addAttribute("userName", user.getName());
             System.out.println("userEmail ##### " + user.getEmail());
@@ -81,3 +83,7 @@ public class IndexController {
 // if (user != null)
 // 세션에 저장된 겂이 있을 때만 model에 userName으로 등록한다.
 // 세션에 저장된 값이 없으면 model엔 아무런 값이 없는 상태이니 로그인 버튼이 보이지 않데 된다.
+
+// @LoingUser SessionUser user
+// 기존에 (User) httpSession.getAttribute("user")로 가져오던 세션 정보값이 개선 되었다.
+// 이제는 어느 컨트롤러든지 @LoginUser만 사용하면 세션 정보를 가져올 수 있게 되었다.
